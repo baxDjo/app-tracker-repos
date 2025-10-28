@@ -1,40 +1,43 @@
-import { useState, type ChangeEvent, type FormEvent } from "react";
+import { useState } from "react";
 import { useAppDispatch } from "../App/hooks";
 import { addTodo } from "../features/todosSlice";
+import { Button, Input } from "@material-tailwind/react";
 
-function TodoForm() {
-
+export default function TodoForm() {
   const dispatch = useAppDispatch();
-  const [inputValue, setInputValue] = useState('');
+  const [value, setValue] = useState("");
 
-  const handleTodoForm = (e: FormEvent<HTMLFormElement>) => {
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const value = inputValue.trim();
-    if (!value) return;                 // évite alert, UX plus douce
-    dispatch(addTodo(value));
-    setInputValue("");
-  };
-
-  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.target.value);
+    const v = value.trim();
+    if (!v) return;
+    dispatch(addTodo(v));
+    setValue("");
   };
 
   return (
-
-    <form className="text-center mb-3" action="" onSubmit={handleTodoForm}>
-      <input
-        type="text"
-        placeholder="Nouvelle tâche"
-        value={inputValue}
-        onChange={onChange}
-        aria-label="Nouvelle tâche"
-        className="input input-bordered mr-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+    <form onSubmit={onSubmit} className="flex items-center gap-2">
+      <Input
+        crossOrigin=""
+        label="Ajouter une nouvelle tâche"
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+        color="blue"
+        className="!border-blue-400 focus:!border-blue-500 focus:!ring-blue-500 text-gray-900 bg-blue-50 dark:bg-gray-800 dark:text-gray-100 rounded-md"
+        labelProps={{
+          className: "!text-blue-600 dark:!text-blue-300 font-medium",
+        }}
+        containerProps={{ className: "min-w-0 flex-1" }}
       />
-      <button className="bg-white text-black font-semibold py-2 px-4 rounded shadow-md hover:bg-gray-100" >Ajouter </button>
+      <Button
+        type="submit"
+        disabled={!value.trim()}
+        className="bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 
+             text-white font-semibold shadow-md rounded-lg px-5 py-2 transition-all duration-200"
+      >
+        ➕ Ajouter
+      </Button>
+
     </form>
-
-  )
-
+  );
 }
-
-export default TodoForm;

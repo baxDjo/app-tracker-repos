@@ -1,3 +1,15 @@
 @import "tailwindcss";
 
 
+@layer base {
+  html, body, #root { min-height: 100%; }
+  body {
+    background: linear-gradient(to top right, #ecfeff, #dbeafe, #bfdbfe);
+    color: #111827;
+    transition: color .3s, background .3s;
+  }
+  .dark body {
+    background: linear-gradient(to top right, #111827, #172554, #111827);
+    color: #f3f4f6;
+  }
+}

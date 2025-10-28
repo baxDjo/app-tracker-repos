@@ -1,48 +1,41 @@
-import { useAppDispatch, useAppSelector } from "../App/hooks"; // ✅ chemin
+import { useAppDispatch, useAppSelector } from "../App/hooks";
 import { setFilter } from "../features/todosSlice";
+import { Button } from "@material-tailwind/react";
 
-function FilterBar() {
-  const todos = useAppSelector((state) => state.todos.items);
+export default function FilterBar() {
   const dispatch = useAppDispatch();
+  const filter = useAppSelector((s) => s.todos.filter);
+  const items = useAppSelector((s) => s.todos.items);
+  const visible =
+    filter === "active" ? items.filter(t => !t.completed)
+    : filter === "done" ? items.filter(t => t.completed)
+    : items;
 
-  const handleFilterChange = (value: "all" | "active" | "done") => {
-    dispatch(setFilter(value));
-  };
+  const isActive = (v: "all" | "active" | "done") => filter === v;
 
   return (
-    <div className="flex items-center gap-4">
-      <button
-        className="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-cyan-200 dark:focus:ring-cyan-800"
-        onClick={() => handleFilterChange("all")}
-      >
-
-        <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-transparent group-hover:dark:bg-transparent">
-          Toutes
-        </span>
-      </button>
-
-      <button
-        className="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-cyan-200 dark:focus:ring-cyan-800"
-        onClick={() => handleFilterChange("active")}
-      >
-        <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-transparent group-hover:dark:bg-transparent">
-          Actives
-        </span>
-      </button>
-
-      <button
-        className="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-cyan-200 dark:focus:ring-cyan-800"
-        onClick={() => handleFilterChange("done")}
-      >
-        <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-transparent group-hover:dark:bg-transparent">
-          Terminées
-        </span>
-
-      </button>
-
-      <span className="ml-2">{todos.length} tâches</span>
+    <div className="flex items-center gap-2 flex-wrap">
+      {(["all", "active", "done"] as const).map((v) => (
+        <Button
+          key={v}
+          type="button"
+          size="sm"
+          variant={isActive(v) ? "filled" : "outlined"}
+          color="blue"
+          onClick={() => dispatch(setFilter(v))}
+          aria-pressed={isActive(v)}
+          className={`capitalize ${
+            isActive(v)
+              ? "bg-blue-600 text-white"
+              : "border-blue-400 text-blue-600 hover:bg-blue-50"
+          }`}
+        >
+          {v === "all" ? "Toutes" : v === "active" ? "Actives" : "Terminées"}
+        </Button>
+      ))}
+      <span className="ml-2 text-sm opacity-70 text-gray-700 dark:text-gray-300">
+        {visible.length} sur {items.length} tâches
+      </span>
     </div>
   );
 }
-
-export default FilterBar;
