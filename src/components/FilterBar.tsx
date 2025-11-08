@@ -2,6 +2,13 @@ import { useAppDispatch, useAppSelector } from "../App/hooks";
 import { setFilter } from "../features/todosSlice";
 import { Button } from "@material-tailwind/react";
 
+/**
+ * Affiche la barre de filtre des tâches.
+ * @param props.filter Filtre actif ("all" | "active" | "done").
+ * @param props.onChange Callback appelé lors d’un changement de filtre.
+ * @example <FilterBar filter="all" onChange={setFilter} />
+ */
+
 export default function FilterBar() {
   const dispatch = useAppDispatch();
   const filter = useAppSelector((s) => s.todos.filter);

@@ -3,6 +3,10 @@ import { useAppDispatch } from "../App/hooks";
 import { addTodo } from "../features/todosSlice";
 import { Button, Input } from "@material-tailwind/react";
 
+/**
+ * Ajoute une tache dans la liste des taches.
+ */
+
 export default function TodoForm() {
   const dispatch = useAppDispatch();
   const [value, setValue] = useState("");

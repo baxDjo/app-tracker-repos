@@ -2,6 +2,10 @@ import { useAppDispatch, useAppSelector } from "../App/hooks";
 import { removeTodo, toggleTodo } from "../features/todosSlice";
 import { Card, CardBody, CardFooter, Typography, Button } from "@material-tailwind/react";
 import { PiTrashSimpleBold } from "react-icons/pi";
+/**
+ * Affiche la liste des taches dans l'application.
+ */
+
 
 export default function TodoList() {
   const dispatch = useAppDispatch();
