@@ -1,5 +1,5 @@
 // App.tsx (extrait)
-import { ThemeProvider, Typography } from "@material-tailwind/react";
+import { ThemeProvider } from "@material-tailwind/react";
 import FilterBar from "./components/FilterBar";
 import TodoForm from "./components/TodoForm";
 import TodoList from "./components/TodoList";

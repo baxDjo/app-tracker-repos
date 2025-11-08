@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useAppDispatch } from "../App/hooks";
 import { addTodo } from "../features/todosSlice";
-import { Button, Input } from "@material-tailwind/react";
+
 
 /**
  * Ajoute une tache dans la liste des taches.
@@ -20,28 +20,25 @@ export default function TodoForm() {
   };
 
   return (
-    <form onSubmit={onSubmit} className="flex items-center gap-2">
-      <Input
-        crossOrigin=""
-        label="Ajouter une nouvelle tâche"
+    <form onSubmit={onSubmit} className="flex items-center gap-3 w-full">
+      <input
+        type="text"
+        placeholder="Ajouter une nouvelle tâche"
         value={value}
         onChange={(e) => setValue(e.target.value)}
-        color="blue"
-        className="!border-blue-400 focus:!border-blue-500 focus:!ring-blue-500 text-gray-900 bg-blue-50 dark:bg-gray-800 dark:text-gray-100 rounded-md"
-        labelProps={{
-          className: "!text-blue-600 dark:!text-blue-300 font-medium",
-        }}
-        containerProps={{ className: "min-w-0 flex-1" }}
+        className="flex-1 rounded-lg border border-blue-300 focus:border-blue-500 focus:ring focus:ring-blue-200
+               bg-blue-50 dark:bg-gray-800 dark:text-gray-100 px-4 py-2 outline-none transition-all duration-200"
       />
-      <Button
+
+      <button
         type="submit"
         disabled={!value.trim()}
-        className="bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 
-             text-white font-semibold shadow-md rounded-lg px-5 py-2 transition-all duration-200"
+        className="rounded-lg bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 
+               text-white font-semibold shadow-md px-5 py-2 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
       >
         ➕ Ajouter
-      </Button>
-
+      </button>
     </form>
+
   );
 }
