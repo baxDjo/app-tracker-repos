@@ -5,6 +5,8 @@ import TodoForm from "./components/TodoForm";
 import TodoList from "./components/TodoList";
 import ThemeToggle from "./components/ThemeToggle";
 import { FaCheckCircle } from "react-icons/fa";
+import Footer from "./components/Footer";
+/*App qui regroupe tous les components du app-tracker */
 
 export default function App() {
   return (
@@ -22,7 +24,7 @@ export default function App() {
               <ThemeToggle />
             </div>
 
-            <p className="text-sm text-gray-500 dark:text-gray-400">
+            <p className="text-lg font-medium font-[Inter] text-gray-600 dark:text-gray-300">
               Gérez vos tâches avec élégance — rapide, clair, efficace.
             </p>
 
@@ -34,6 +36,8 @@ export default function App() {
           <TodoList />
         </div>
       </main>
+
+      <Footer/>
     </ThemeProvider>
 
   );
